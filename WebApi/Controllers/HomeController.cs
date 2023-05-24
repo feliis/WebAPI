@@ -5,11 +5,11 @@ namespace WebApi.Controllers
 {
     [ApiController]
 
-    public class SaleController : Controller
+    public class EmployeeController : Controller
     {
         [Route("Add/[controller]")]
         [HttpPost]
-        public IActionResult AddSale([FromBody] Sale NewSale)
+        public IActionResult AddEmployee([FromBody] Employee NewEmployee)
         {
             if (!ModelState.IsValid)
             {
@@ -17,8 +17,8 @@ namespace WebApi.Controllers
             }
             using (ContextDB DB = new ContextDB())
             {
-                NewSale.id_sale = NewSale.NewIndex();
-                DB.Add(NewSale);
+                NewEmployee.id_employee = NewEmployee.NewIndex();
+                DB.Add(NewEmployee);
                 DB.SaveChanges();
                 return Ok();
             }
@@ -29,21 +29,21 @@ namespace WebApi.Controllers
         public IActionResult Show()
         {
             ContextDB DB = new ContextDB();
-            Sale newSale = new Sale();
-            var sale = DB.sale.ToList();
-            return Ok(sale);
+            Employee newEmployee = new Employee();
+            var employee = DB.employee.ToList();
+            return Ok(employee);
         }
 
         [Route("Delete/[controller]")]
         [HttpDelete]
-        public IActionResult DeleteSaleByID(int id_sale)
+        public IActionResult DeleteEmployeeByID(int id_employee)
         {
             using (ContextDB DB = new ContextDB())
             {
-                Sale data = DB.sale.Find(id_sale);
+                Employee data = DB.employee.Find(id_employee);
                 if (data != null)
                 {
-                    DB.sale.Remove(data);
+                    DB.employee.Remove(data);
                     DB.SaveChanges();
                     return Ok();
                 }

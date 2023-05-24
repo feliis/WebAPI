@@ -1,15 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using WebApi.Models;
 
 namespace WebApi.Controllers
 {
-    [ApiController]
-
-    public class SaleController : Controller
+    public class CassetteController : Controller
     {
+
         [Route("Add/[controller]")]
         [HttpPost]
-        public IActionResult AddSale([FromBody] Sale NewSale)
+        public IActionResult AddCassette([FromBody] Cassette NewCassette)
         {
             if (!ModelState.IsValid)
             {
@@ -17,8 +17,8 @@ namespace WebApi.Controllers
             }
             using (ContextDB DB = new ContextDB())
             {
-                NewSale.id_sale = NewSale.NewIndex();
-                DB.Add(NewSale);
+                NewCassette.id_cassette = NewCassette.NewIndex();
+                DB.Add(NewCassette);
                 DB.SaveChanges();
                 return Ok();
             }
@@ -29,21 +29,22 @@ namespace WebApi.Controllers
         public IActionResult Show()
         {
             ContextDB DB = new ContextDB();
-            Sale newSale = new Sale();
-            var sale = DB.sale.ToList();
-            return Ok(sale);
+            Cassette newCassette = new Cassette();
+            var cassette = DB.cassette.ToList();
+            return Ok(cassette);
         }
 
-        [Route("Delete/[controller]")]
+
+        [Route("DeleteCassette/[controller]")]
         [HttpDelete]
-        public IActionResult DeleteSaleByID(int id_sale)
+        public IActionResult DeleteCassetteByID(int id_cassette)
         {
             using (ContextDB DB = new ContextDB())
             {
-                Sale data = DB.sale.Find(id_sale);
+                Cassette data = DB.cassette.Find(id_cassette);
                 if (data != null)
                 {
-                    DB.sale.Remove(data);
+                    DB.cassette.Remove(data);
                     DB.SaveChanges();
                     return Ok();
                 }

@@ -1,15 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using System.Xml;
-using WebApi.Models;
 
 namespace WebApi.Models
 {
-    public class ContextDB: DbContext
+    public class ContextDB : DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Host=localhost;Port=7022;Database=Videoibrary;Username=postgres;Password=5689");
+            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=videoLibrary;Username=postgres;Password=5689");
         }
 
         public ContextDB()

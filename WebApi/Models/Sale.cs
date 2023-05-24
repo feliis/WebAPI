@@ -13,15 +13,28 @@ namespace WebApi.Models
 
 
         [ForeignKey("Cassette")]
-        public string cassette { get; set; }
+        public int id_cassette { get; set; }
 
         [ForeignKey("Customer")]
-        public string customer { get; set; }
+        public int id_customer { get; set; }
 
         [ForeignKey("Employee")]
-        public string employee { get; set; }
-
+        public int id_employee { get; set; }
 
         public int qty { get; set; }
+
+        public virtual int NewIndex()
+        {
+            using (ContextDB DB = new ContextDB())
+            {
+                int Max = -1;
+                var SaleList = DB.sale.ToList();
+                foreach (Sale p in SaleList)
+                {
+                    if (p.id_sale > Max) Max = p.id_sale;
+                }
+                return (Max + 1);
+            }
+        }
     }
 }
